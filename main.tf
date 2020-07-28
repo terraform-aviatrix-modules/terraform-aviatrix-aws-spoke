@@ -2,6 +2,7 @@
 resource "aviatrix_vpc" "default" {
   cloud_type           = 1
   region               = var.region
+  cidr                 = var.cidr
   account_name         = var.aws_account_name
   name                 = "spoke-vpc-${var.spoke_name}"
   aviatrix_transit_vpc = false
