@@ -30,12 +30,12 @@ variable "insane_mode" {
 }
 
 variable "az1" {
-  type = string
+  type    = string
   default = "a"
 }
 
 variable "az2" {
-  type = string
+  type    = string
   default = "b"
 }
 
