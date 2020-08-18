@@ -20,6 +20,8 @@ resource "aviatrix_spoke_gateway" "single" {
   vpc_id             = aviatrix_vpc.default.vpc_id
   account_name       = var.aws_account_name
   subnet             = aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets)/2].cidr
+  insane_mode        = var.insane_mode
+  insane_mode_az     = "${var.region}${var.az1}"
   transit_gw         = var.transit_gw
 }
 
@@ -36,5 +38,8 @@ resource "aviatrix_spoke_gateway" "ha" {
   subnet             = aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets)/2].cidr
   ha_subnet          = aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets)/2+1].cidr
   ha_gw_size         = var.instance_size
+  insane_mode        = var.insane_mode
+  insane_mode_az     = "${var.region}${var.az1}"
+  ha_insane_mode_az  = "${var.region}${var.az2}"
   transit_gw         = var.transit_gw
 }
