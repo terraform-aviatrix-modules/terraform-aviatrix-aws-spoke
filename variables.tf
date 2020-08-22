@@ -24,6 +24,21 @@ variable "ha_gw" {
   default = true
 }
 
+variable "insane_mode" {
+  type    = bool
+  default = false
+}
+
+variable "az1" {
+  type    = string
+  default = "a"
+}
+
+variable "az2" {
+  type    = string
+  default = "b"
+}
+
 variable "transit_gw" {
   type = string
 }
