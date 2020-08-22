@@ -1,4 +1,4 @@
-variable "spoke_name" {
+variable "name" {
   type = string
 }
 
@@ -10,7 +10,7 @@ variable "cidr" {
   type = string
 }
 
-variable "aws_account_name" {
+variable "account" {
   type = string
 }
 
