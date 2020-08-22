@@ -11,7 +11,7 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "1.0.0"
+  version = "1.0.1"
 
   name = "App1"
   cidr = "10.1.0.0/20"
