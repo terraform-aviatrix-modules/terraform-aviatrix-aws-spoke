@@ -12,7 +12,7 @@ resource "aviatrix_vpc" "default" {
 # Single Transit GW
 resource "aviatrix_spoke_gateway" "single" {
   count              = var.ha_gw ? 0 : 1
-  enable_active_mesh = true
+  enable_active_mesh = var.active_mesh
   cloud_type         = 1
   vpc_reg            = var.region
   gw_name            = "avx-${var.name}-spoke"
@@ -28,7 +28,7 @@ resource "aviatrix_spoke_gateway" "single" {
 # HA Transit GW
 resource "aviatrix_spoke_gateway" "ha" {
   count              = var.ha_gw ? 1 : 0
-  enable_active_mesh = true
+  enable_active_mesh = var.active_mesh
   cloud_type         = 1
   vpc_reg            = var.region
   gw_name            = "avx-${var.name}-spoke"
