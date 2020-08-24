@@ -42,3 +42,9 @@ variable "az2" {
 variable "transit_gw" {
   type = string
 }
+
+variable "active_mesh" {
+  description = ""
+  type        = bool
+  default     = true
+}
