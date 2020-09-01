@@ -21,7 +21,7 @@ resource "aviatrix_spoke_gateway" "single" {
   account_name       = var.account
   subnet             = var.insane_mode ? cidrsubnet(aviatrix_vpc.default.cidr, 10, 4) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2].cidr
   insane_mode        = var.insane_mode
-  insane_mode_az     = "${var.region}${var.az1}"
+  insane_mode_az     = var.insane_mode ? "${var.region}${var.az1}" : ""
   transit_gw         = var.transit_gw
 }
 
@@ -39,7 +39,7 @@ resource "aviatrix_spoke_gateway" "ha" {
   ha_subnet          = var.insane_mode ? cidrsubnet(aviatrix_vpc.default.cidr, 10, 8) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2 + 1].cidr
   ha_gw_size         = var.instance_size
   insane_mode        = var.insane_mode
-  insane_mode_az     = "${var.region}${var.az1}"
-  ha_insane_mode_az  = "${var.region}${var.az2}"
+  insane_mode_az     = var.insane_mode ? "${var.region}${var.az1}" : ""
+  ha_insane_mode_az  = var.insane_mode ? "${var.region}${var.az2}" : ""
   transit_gw         = var.transit_gw
 }
