@@ -3,9 +3,20 @@
 ### Description
 This module deploys a very simple spoke VPC, with a public and a private subnet in each availability zone. Transit gateways are created in the public subnets of the 2 first AZ's.
 
+### Compatibility
+Module version | Terraform version | Controller version | Terraform provider version
+:--- | :--- | :--- | :---
+v1.1.0 | 0.12 | | 
+v1.0.2 | 0.12 | | 
+v1.0.1 | 0.12 | |
+v1.0.0 | 0.12 | |
+
 ### Diagram
-\<Provide a diagram of the high level constructs thet will be created by this module>
-<img src="<IMG URL>"  height="250">
+<img src="https://github.com/terraform-aviatrix-modules/terraform-aviatrix-aws-spoke/blob/master/img/spoke-vpc-aws-ha.png?raw=true">
+
+with ha_gw set to false, the following will be deployed:
+
+<img src="https://github.com/terraform-aviatrix-modules/terraform-aviatrix-aws-spoke/blob/master/img/spoke-vpc-aws.png?raw=true">
 
 ### Usage Example
 ```

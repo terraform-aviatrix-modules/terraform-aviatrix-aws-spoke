@@ -1,50 +1,60 @@
 variable "name" {
-  type = string
+  description = "Name for this spoke VPC and it's gateways"
+  type        = string
 }
 
 variable "region" {
-  type = string
+  description = "The AWS region to deploy this module in"
+  type        = string
 }
 
 variable "cidr" {
-  type = string
+  description = "The CIDR range to be used for the VPC"
+  type        = string
 }
 
 variable "account" {
-  type = string
+  description = "The AWS account name, as known by the Aviatrix controller"
+  type        = string
 }
 
 variable "instance_size" {
-  type    = string
-  default = "t3.medium"
+  description = "AWS Instance size for the Aviatrix gateways"
+  type        = string
+  default     = "t3.medium"
 }
 
 variable "ha_gw" {
-  type    = bool
-  default = true
+  description = "Boolean to determine if module will be deployed in HA or single mode"
+  type        = bool
+  default     = true
 }
 
 variable "insane_mode" {
-  type    = bool
-  default = false
+  description = "Set to true to enable Aviatrix high performance encryption."
+  type        = bool
+  default     = false
 }
 
 variable "az1" {
-  type    = string
-  default = "a"
+  description = "Concatenates with region to form az names. e.g. eu-central-1a. Only used for insane mode"
+  type        = string
+  default     = "a"
 }
 
 variable "az2" {
-  type    = string
-  default = "b"
+  description = "Concatenates with region to form az names. e.g. eu-central-1b. Only used for insane mode"
+  type        = string
+  default     = "b"
 }
 
 variable "transit_gw" {
-  type = string
+  description = "Name of the transit gateway to attach this spoke to"
+  type        = string
 }
 
 variable "active_mesh" {
-  description = ""
+  description = "Set to false to disable active mesh."
   type        = bool
   default     = true
 }
