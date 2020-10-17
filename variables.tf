@@ -3,6 +3,18 @@ variable "name" {
   type        = string
 }
 
+variable "prefix" {
+  description = "Boolean to determine if name will be prepended with avx-"
+  type        = bool
+  default     = true
+}
+
+variable "suffix" {
+  description = "Boolean to determine if name will be appended with -spoke"
+  type        = bool
+  default     = true
+}
+
 variable "region" {
   description = "The AWS region to deploy this module in"
   type        = string
@@ -57,4 +69,15 @@ variable "active_mesh" {
   description = "Set to false to disable active mesh."
   type        = bool
   default     = true
+}
+
+locals {
+  lower_name        = replace(lower(var.name), " ", "-")
+  prefix            = var.prefix ? "avx-" : ""
+  suffix            = var.suffix ? "-spoke" : ""
+  name              = "${local.prefix}${local.lower_name}${local.suffix}"
+  subnet            = var.insane_mode ? cidrsubnet(var.cidr, 3, 6) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2].cidr
+  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, 3, 7) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2 + 1].cidr
+  insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
+  ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
 }

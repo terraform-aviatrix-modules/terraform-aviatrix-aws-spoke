@@ -6,6 +6,7 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
+v1.1.1 | 0.12 | |
 v1.1.0 | 0.12 | | 
 v1.0.2 | 0.12 | | 
 v1.0.1 | 0.12 | |
@@ -22,7 +23,7 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "1.1.0"
+  version = "1.1.1"
 
   name = "App1"
   cidr = "10.1.0.0/20"
@@ -53,6 +54,8 @@ insane_mode | false | Set to true to enable insane mode encryption
 az1 | "a" | concatenates with region to form az names. e.g. eu-central-1a. Used for insane mode only.
 az2 | "b" | concatenates with region to form az names. e.g. eu-central-1b. Used for insane mode only.
 active_mesh | true | Set to false to disable active mesh.
+prefix | true | Boolean to enable prefix name with avx-
+suffix | true | Boolean to enable suffix name with -spoke
 
 ### Outputs
 This module will return the following outputs:
