@@ -6,6 +6,7 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
+v1.1.1 | 0.12 | |
 v1.1.0 | 0.12 | | 
 v1.0.2 | 0.12 | | 
 v1.0.1 | 0.12 | |
