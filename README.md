@@ -23,7 +23,7 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "1.1.0"
+  version = "1.1.1"
 
   name = "App1"
   cidr = "10.1.0.0/20"
