@@ -28,7 +28,7 @@ resource "aviatrix_spoke_gateway" "default" {
 }
 
 resource "aviatrix_segmentation_security_domain_association" "default" {
-  #count                = var.attached ? (length(var.security_domain) > 0 ? 1 : 0) : 0
+  count                = var.attached ? (length(var.security_domain) > 0 ? 1 : 0) : 0 #Only create resource when attached and security_domain is set.
   transit_gateway_name = var.transit_gw
   security_domain_name = var.security_domain
   attachment_name      = aviatrix_spoke_gateway.default.gw_name
