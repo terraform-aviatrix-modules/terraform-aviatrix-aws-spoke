@@ -59,7 +59,7 @@ active_mesh | true | Set to false to disable active mesh.
 prefix | true | Boolean to enable prefix name with avx-
 suffix | true | Boolean to enable suffix name with -spoke
 attached | true | Set to false if you don't want to attach spoke to transit.
-security_domain | Provide security domain name to which spoke needs to be deployed. Transit gateway mus tbe attached and have segmentation enabled.
+security_domain | Provide security domain name to which spoke needs to be deployed. Transit gateway must be attached and have segmentation enabled.
 
 ### Outputs
 This module will return the following outputs:
