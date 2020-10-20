@@ -6,6 +6,7 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
+v2.0.0 | 0.12 | >=6.2 | >=0.2.17
 v1.1.1 | 0.12 | |
 v1.1.0 | 0.12 | | 
 v1.0.2 | 0.12 | | 
@@ -23,13 +24,14 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "1.1.1"
+  version = "2.0.0"
 
-  name = "App1"
-  cidr = "10.1.0.0/20"
-  region = "eu-west-1"
-  account = "AWS"
-  transit_gw = "avx-eu-west-1-transit"
+  name            = "App1"
+  cidr            = "10.1.0.0/20"
+  region          = "eu-west-1"
+  account         = "AWS"
+  transit_gw      = "avx-eu-west-1-transit"
+  security_domain = "blue"
 }
 ```
 
@@ -42,7 +44,7 @@ name | Name for this spoke VPC and it's gateways
 region | AWS region to deploy this VPC in
 cidr | What ip CIDR to use for this VPC
 account | The account name as known by the Aviatrix controller
-transit_gw | The name of the transit gateway we want to attach this spoke to
+transit_gw | The name of the transit gateway we want to attach this spoke to. Not required when attached is set to false.
 
 The following variables are optional:
 
@@ -56,6 +58,8 @@ az2 | "b" | concatenates with region to form az names. e.g. eu-central-1b. Used 
 active_mesh | true | Set to false to disable active mesh.
 prefix | true | Boolean to enable prefix name with avx-
 suffix | true | Boolean to enable suffix name with -spoke
+attached | true | Set to false if you don't want to attach spoke to transit.
+security_domain | Provide security domain name to which spoke needs to be deployed. Transit gateway mus tbe attached and have segmentation enabled.
 
 ### Outputs
 This module will return the following outputs:
