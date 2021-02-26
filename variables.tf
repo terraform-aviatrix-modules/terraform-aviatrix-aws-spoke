@@ -118,8 +118,11 @@ locals {
   prefix            = var.prefix ? "avx-" : ""
   suffix            = var.suffix ? "-spoke" : ""
   name              = "${local.prefix}${local.lower_name}${local.suffix}"
-  subnet            = var.insane_mode ? cidrsubnet(var.cidr, 3, 6) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2].cidr
-  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, 3, 7) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2 + 1].cidr
+  cidrbits          = tonumber(split("/", var.cidr)[1])
+  newbits           = 26 - local.cidrbits
+  netnum            = pow(2, local.newbits)
+  subnet            = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2].cidr
+  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2 + 1].cidr
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
 }
