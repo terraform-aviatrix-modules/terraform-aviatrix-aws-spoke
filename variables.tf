@@ -113,6 +113,18 @@ variable "included_advertised_spoke_routes" {
   default     = ""
 }
 
+variable "vpc_subnet_pairs" {
+  description = "Number of subnet pairs created in the VPC"
+  type        = number
+  default     = 2
+}
+
+variable "vpc_subnet_size" {
+  description = "Size of each subnet cidr block in bits"
+  type        = number
+  default     = 28
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
@@ -121,8 +133,8 @@ locals {
   cidrbits          = tonumber(split("/", var.cidr)[1])
   newbits           = 26 - local.cidrbits
   netnum            = pow(2, local.newbits)
-  subnet            = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2].cidr
-  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default.subnets[length(aviatrix_vpc.default.subnets) / 2 + 1].cidr
+  subnet            = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default.public_subnets[0].cidr
+  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default.public_subnets[1].cidr
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
 }
