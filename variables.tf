@@ -125,6 +125,12 @@ variable "vpc_subnet_size" {
   default     = 28
 }
 
+variable "enable_encrypt_volume" {
+  description = "Enable EBS volume encryption for Gateway. Only supports AWS and AWSGOV provider. Valid values: true, false. Default value: false"
+  type        = bool
+  default     = false
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
