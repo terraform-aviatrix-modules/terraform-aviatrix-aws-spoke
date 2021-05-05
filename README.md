@@ -70,6 +70,8 @@ filtered_spoke_vpc_routes | | A list of comma separated CIDRs to be filtered fr
 included_advertised_spoke_routes | | A list of comma separated CIDRs to be advertised to on-prem as Included CIDR List. When configured, it will replace all advertised routes from this VPC. Example: 10.4.0.0/116,10.5.0.0/16
 vpc_num_subnets | 2 | Number of Public/Private subnet pairs created in the VPC.
 vpc_subnet_size | 28 | Size of the Public/Private subnets in the VPC.
+enable_encrypt_volume | false | Set to true to enable EBS volume encryption for Gateway.
+customer_managed_keys | null | Customer managed key ID for EBS Volume encryption.
 
 ### Outputs
 This module will return the following outputs:

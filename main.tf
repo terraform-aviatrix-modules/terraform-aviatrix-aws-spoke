@@ -32,6 +32,7 @@ resource "aviatrix_spoke_gateway" "default" {
   filtered_spoke_vpc_routes         = var.filtered_spoke_vpc_routes
   included_advertised_spoke_routes  = var.included_advertised_spoke_routes
   enable_encrypt_volume             = var.enable_encrypt_volume
+  customer_managed_keys             = var.customer_managed_keys
 }
 
 resource "aviatrix_spoke_transit_attachment" "default" {

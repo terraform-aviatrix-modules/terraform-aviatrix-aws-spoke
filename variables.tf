@@ -131,6 +131,12 @@ variable "enable_encrypt_volume" {
   default     = false
 }
 
+variable "customer_managed_keys" {
+  description = "Customer managed key ID for EBS Volume encryption."
+  type        = string
+  default     = null
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
