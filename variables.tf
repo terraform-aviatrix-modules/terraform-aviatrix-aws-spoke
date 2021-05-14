@@ -137,6 +137,36 @@ variable "customer_managed_keys" {
   default     = null
 }
 
+variable "private_vpc_default_route" {
+  description = "Program default route in VPC private route table."
+  type        = bool
+  default     = false
+}
+
+variable "skip_public_route_table_update" {
+  description = "Skip programming VPC public route table."
+  type        = bool
+  default     = false
+}
+
+variable "auto_advertise_s2c_cidrs" {
+  description = "Auto Advertise Spoke Site2Cloud CIDRs."
+  type        = bool
+  default     = false
+}
+
+variable "tunnel_detection_time" {
+  description = "The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600]."
+  type        = number
+  default     = 60
+}
+
+variable "tags" {
+  description = "Map of tags to assign to the gateway."
+  type        = map(string)
+  default     = null
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""

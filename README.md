@@ -6,6 +6,7 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
+v4.0.1 | 0.14 | >=6.4 | >=0.2.19
 v3.0.1 | 0.13 | >=6.3 | >=0.2.18
 v3.0.0 | 0.13 | >=6.2 | >=0.2.17
 v2.0.0 | 0.12 | >=6.2 | >=0.2.17
@@ -26,7 +27,7 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "2.0.0"
+  version = "4.0.1"
 
   name            = "App1"
   cidr            = "10.1.0.0/20"
@@ -34,6 +35,7 @@ module "spoke_aws_1" {
   account         = "AWS"
   transit_gw      = "avx-eu-west-1-transit"
   security_domain = "blue"
+  tags            = { "tag1":"value1","tag2":"value2" }
 }
 ```
 
@@ -71,6 +73,11 @@ vpc_num_subnets | 2 | Number of Public/Private subnet pairs created in the VPC.
 vpc_subnet_size | 28 | Size of the Public/Private subnets in the VPC.
 enable_encrypt_volume | false | Set to true to enable EBS volume encryption for Gateway.
 customer_managed_keys | null | Customer managed key ID for EBS Volume encryption.
+private_vpc_default_route | false | Program default route in VPC private route table.
+skip_public_route_table_update | false | Skip programming VPC public route table.
+auto_advertise_s2c_cidrs | false | Auto Advertise Spoke Site2Cloud CIDRs.
+tunnel_detection_time | 60 | The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600].
+tags | null | Map of tags to assign to the gateway.
 
 ### Outputs
 This module will return the following outputs:
