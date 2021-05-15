@@ -180,13 +180,13 @@ variable "vpc_id" {
   default     = ""
 }
 
-variable "gw_subnet_cidr" {
+variable "gw_subnet" {
   description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided"
   type        = string
   default     = ""
 }
 
-variable "ha_gw_subnet_cidr" {
+variable "hagw_subnet" {
   description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided and ha_gw is true"
   type        = string
   default     = ""

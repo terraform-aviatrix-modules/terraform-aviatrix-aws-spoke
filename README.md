@@ -77,8 +77,8 @@ tunnel_detection_time | 60 | The IPsec tunnel down detection time for the Spoke 
 tags | null | Map of tags to assign to the gateway.
 use_existing_vpc | false | Set to true to use an existing VPC in stead of having this module create one.
 vpc_id | | VPC ID, for using an existing VPC.
-gw_subnet_cidr | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled. Make sure this is a public subnet.
-ha_gw_subnet_cidr | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled and ha_gw is true. Make sure this is a public subnet.
+gw_subnet | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled. Make sure this is a public subnet.
+hagw_subnet | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled and ha_gw is true. Make sure this is a public subnet.
 
 ### Outputs
 This module will return the following outputs:
