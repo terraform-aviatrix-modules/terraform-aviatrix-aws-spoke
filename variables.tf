@@ -196,7 +196,7 @@ locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
   suffix            = var.suffix ? "-spoke" : ""
-  cidr              = var.existing_vpc_id ? "10.0.0.0/20" : var.cidr #Set dummy if existing VPC is used.
+  cidr              = var.use_existing_vpc ? "10.0.0.0/20" : var.cidr #Set dummy if existing VPC is used.
   name              = "${local.prefix}${local.lower_name}${local.suffix}"
   cidrbits          = tonumber(split("/", local.cidr)[1])
   newbits           = 26 - local.cidrbits
