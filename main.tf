@@ -20,8 +20,8 @@ resource "aviatrix_spoke_gateway" "default" {
   gw_size                               = var.instance_size
   vpc_id                                = var.use_existing_vpc ? var.vpc_id : aviatrix_vpc.default[0].vpc_id
   account_name                          = var.account
-  subnet                                = var.use_existing_vpc ? var.subnet1_cidr : local.subnet
-  ha_subnet                             = var.ha_gw ? (var.use_existing_vpc ? local.subnet2_cidr : local.ha_subnet) : null
+  subnet                                = var.use_existing_vpc ? var.gw_subnet_cidr : local.subnet
+  ha_subnet                             = var.ha_gw ? (var.use_existing_vpc ? var.ha_gw_subnet_cidr : local.ha_subnet) : null
   ha_gw_size                            = var.ha_gw ? var.instance_size : null
   insane_mode                           = var.insane_mode
   insane_mode_az                        = local.insane_mode_az
