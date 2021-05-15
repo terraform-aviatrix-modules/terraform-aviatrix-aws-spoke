@@ -170,19 +170,19 @@ variable "tags" {
 variable "existing_vpc_id" {
   description = "VPC ID, for using an existing VPC."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "subnet1_cidr" {
   description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "subnet2_cidr" {
   description = "Subnet CIDR, for using an existing VPC. Optional when existing_vpc_id is provided. If ha_gw is true and this is not set, ha_gw will be deployed in subnet1_cidr"
   type        = string
-  default     = null
+  default     = ""
 }
 
 locals {
