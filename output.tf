@@ -1,6 +1,6 @@
 output "vpc" {
   description = "The created VPC as an object with all of it's attributes. This was created using the aviatrix_vpc resource."
-  value       = local.use_existing_vpc ? "" : aviatrix_vpc.default
+  value       = local.use_existing_vpc ? "" : aviatrix_vpc.default[0]
 }
 
 output "spoke_gateway" {
