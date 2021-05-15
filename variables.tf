@@ -199,5 +199,6 @@ locals {
   ha_subnet         = var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
+  use_existing_vpc  = length(var.existing_vpc_id) > 0
   subnet2_cidr      = length(var.subnet2_cidr) > 0 ? var.subnet2_cidr : var.subnet1_cidr
 }
