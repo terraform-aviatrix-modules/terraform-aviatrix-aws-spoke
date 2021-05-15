@@ -23,6 +23,7 @@ variable "region" {
 variable "cidr" {
   description = "The CIDR range to be used for the VPC"
   type        = string
+  default     = ""
 }
 
 variable "account" {
@@ -189,12 +190,13 @@ locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
   suffix            = var.suffix ? "-spoke" : ""
+  cidr              = local.use_existing_vpc ? "10.0.0.0/20" : var.cidr #Set dummy if existing VPC is used.
   name              = "${local.prefix}${local.lower_name}${local.suffix}"
-  cidrbits          = tonumber(split("/", var.cidr)[1])
+  cidrbits          = tonumber(split("/", local.cidr)[1])
   newbits           = 26 - local.cidrbits
   netnum            = pow(2, local.newbits)
-  subnet            = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default[0].public_subnets[0].cidr
-  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr
+  subnet            = var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default[0].public_subnets[0].cidr
+  ha_subnet         = var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
   use_existing_vpc  = length(var.existing_vpc_id) > 0 ? true : false

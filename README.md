@@ -43,7 +43,7 @@ key | value
 :--- | :---
 name | Name for this spoke VPC and it's gateways
 region | AWS region to deploy this VPC in
-cidr | What ip CIDR to use for this VPC
+cidr | What ip CIDR to use for this VPC (Not required when using existing_vpc_id)
 account | The account name as known by the Aviatrix controller
 transit_gw | The name of the transit gateway we want to attach this spoke to. Not required when attached is set to false.
 
