@@ -168,7 +168,13 @@ variable "tags" {
   default     = null
 }
 
-variable "existing_vpc_id" {
+variable "use_existing_vpc" {
+  description = "Set to true to use existing VPC."
+  type        = bool
+  default     = false
+}
+
+variable "vpc_id" {
   description = "VPC ID, for using an existing VPC."
   type        = string
   default     = ""
@@ -190,7 +196,7 @@ locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
   suffix            = var.suffix ? "-spoke" : ""
-  cidr              = length(var.existing_vpc_id) > 0 ? "10.0.0.0/20" : var.cidr #Set dummy if existing VPC is used.
+  cidr              = var.existing_vpc_id ? "10.0.0.0/20" : var.cidr #Set dummy if existing VPC is used.
   name              = "${local.prefix}${local.lower_name}${local.suffix}"
   cidrbits          = tonumber(split("/", local.cidr)[1])
   newbits           = 26 - local.cidrbits
@@ -199,6 +205,5 @@ locals {
   ha_subnet         = var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
-  use_existing_vpc  = length(var.existing_vpc_id) > 0
   subnet2_cidr      = length(var.subnet2_cidr) > 0 ? var.subnet2_cidr : var.subnet1_cidr
 }
