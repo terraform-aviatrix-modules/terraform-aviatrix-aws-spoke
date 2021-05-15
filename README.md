@@ -76,8 +76,8 @@ auto_advertise_s2c_cidrs | false | Auto Advertise Spoke Site2Cloud CIDRs.
 tunnel_detection_time | 60 | The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600].
 tags | null | Map of tags to assign to the gateway.
 existing_vpc_id | null | VPC ID, for using an existing VPC.
-subnet1_cidr | null | Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided
-subnet2_cidr | null | Subnet CIDR, for using an existing VPC. Optional when existing_vpc_id is provided. If ha_gw is true and this is not set, ha_gw will be deployed in subnet1_cidr
+subnet1_cidr | null | Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided. Make sure this is a public subnet.
+subnet2_cidr | null | Subnet CIDR, for using an existing VPC. Optional when existing_vpc_id is provided. If ha_gw is true and this is not set, ha_gw will be deployed in subnet1_cidr. Make sure this is a public subnet.
 
 ### Outputs
 This module will return the following outputs:
