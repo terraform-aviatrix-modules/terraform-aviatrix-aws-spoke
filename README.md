@@ -78,11 +78,14 @@ skip_public_route_table_update | false | Skip programming VPC public route table
 auto_advertise_s2c_cidrs | false | Auto Advertise Spoke Site2Cloud CIDRs.
 tunnel_detection_time | 60 | The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600].
 tags | null | Map of tags to assign to the gateway.
+existing_vpc_id | null | VPC ID, for using an existing VPC.
+subnet1_cidr | null | Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided
+subnet2_cidr | null | Subnet CIDR, for using an existing VPC. Optional when existing_vpc_id is provided. If ha_gw is true and this is not set, ha_gw will be deployed in subnet1_cidr
 
 ### Outputs
 This module will return the following outputs:
 
 key | description
 :---|:---
-vpc | The created VPC as an object with all of it's attributes. This was created using the aviatrix_vpc resource.
+vpc | The created VPC as an object with all of it's attributes (when existing_vpc_id is not set). This was created using the aviatrix_vpc resource.
 spoke_gateway | The created Aviatrix spoke gateway as an object with all of it's attributes.

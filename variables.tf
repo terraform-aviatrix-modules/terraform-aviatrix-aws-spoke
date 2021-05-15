@@ -167,6 +167,24 @@ variable "tags" {
   default     = null
 }
 
+variable "existing_vpc_id" {
+  description = "VPC ID, for using an existing VPC."
+  type        = string
+  default     = null
+}
+
+variable "subnet1_cidr" {
+  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided"
+  type        = string
+  default     = null
+}
+
+variable "subnet2_cidr" {
+  description = "Subnet CIDR, for using an existing VPC. Optional when existing_vpc_id is provided. If ha_gw is true and this is not set, ha_gw will be deployed in subnet1_cidr"
+  type        = string
+  default     = null
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
@@ -179,4 +197,6 @@ locals {
   ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default.public_subnets[1].cidr
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
+  use_existing_vpc  = length(var.existing_vpc_id) > 0 ? true : false
+  subnet2_cidr      = length(subnet2_cidr) > 0 ? var.subnet2_cidr : var.subnet1_cidr
 }
