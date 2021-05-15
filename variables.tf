@@ -23,6 +23,7 @@ variable "region" {
 variable "cidr" {
   description = "The CIDR range to be used for the VPC"
   type        = string
+  default     = ""
 }
 
 variable "account" {
@@ -167,16 +168,41 @@ variable "tags" {
   default     = null
 }
 
+variable "use_existing_vpc" {
+  description = "Set to true to use existing VPC."
+  type        = bool
+  default     = false
+}
+
+variable "vpc_id" {
+  description = "VPC ID, for using an existing VPC."
+  type        = string
+  default     = ""
+}
+
+variable "gw_subnet" {
+  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided"
+  type        = string
+  default     = ""
+}
+
+variable "hagw_subnet" {
+  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided and ha_gw is true"
+  type        = string
+  default     = ""
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
   suffix            = var.suffix ? "-spoke" : ""
+  cidr              = var.use_existing_vpc ? "10.0.0.0/20" : var.cidr #Set dummy if existing VPC is used.
   name              = "${local.prefix}${local.lower_name}${local.suffix}"
-  cidrbits          = tonumber(split("/", var.cidr)[1])
+  cidrbits          = tonumber(split("/", local.cidr)[1])
   newbits           = 26 - local.cidrbits
   netnum            = pow(2, local.newbits)
-  subnet            = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default.public_subnets[0].cidr
-  ha_subnet         = var.insane_mode ? cidrsubnet(var.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default.public_subnets[1].cidr
+  subnet            = var.use_existing_vpc ? null : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default[0].public_subnets[0].cidr)
+  ha_subnet         = var.use_existing_vpc ? null : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr)
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
 }

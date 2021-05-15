@@ -1,5 +1,6 @@
 # Aviatrix Spoke VPC
 resource "aviatrix_vpc" "default" {
+  count                = var.use_existing_vpc ? 0 : 1
   cloud_type           = 1
   region               = var.region
   cidr                 = var.cidr
@@ -17,10 +18,10 @@ resource "aviatrix_spoke_gateway" "default" {
   vpc_reg                               = var.region
   gw_name                               = local.name
   gw_size                               = var.instance_size
-  vpc_id                                = aviatrix_vpc.default.vpc_id
+  vpc_id                                = var.use_existing_vpc ? var.vpc_id : aviatrix_vpc.default[0].vpc_id
   account_name                          = var.account
-  subnet                                = local.subnet
-  ha_subnet                             = var.ha_gw ? local.ha_subnet : null
+  subnet                                = var.use_existing_vpc ? var.gw_subnet : local.subnet
+  ha_subnet                             = var.ha_gw ? (var.use_existing_vpc ? var.hagw_subnet : local.ha_subnet) : null
   ha_gw_size                            = var.ha_gw ? var.instance_size : null
   insane_mode                           = var.insane_mode
   insane_mode_az                        = local.insane_mode_az

@@ -6,15 +6,12 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
-v4.0.1 | 0.14 | >=6.4 | >=0.2.19
+v4.0.0 | 0.14 | >=6.4 | >=0.2.19
 v3.0.1 | 0.13 | >=6.3 | >=0.2.18
 v3.0.0 | 0.13 | >=6.2 | >=0.2.17
 v2.0.0 | 0.12 | >=6.2 | >=0.2.17
-v1.1.1 | 0.12 | |
-v1.1.0 | 0.12 | | 
-v1.0.2 | 0.12 | | 
-v1.0.1 | 0.12 | |
-v1.0.0 | 0.12 | |
+
+**_Information on older releases can be found in respective release notes._*
 
 ### Diagram
 <img src="https://github.com/terraform-aviatrix-modules/terraform-aviatrix-aws-spoke/blob/master/img/spoke-vpc-aws-ha.png?raw=true">
@@ -27,7 +24,7 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "4.0.1"
+  version = "4.0.0"
 
   name            = "App1"
   cidr            = "10.1.0.0/20"
@@ -46,7 +43,7 @@ key | value
 :--- | :---
 name | Name for this spoke VPC and it's gateways
 region | AWS region to deploy this VPC in
-cidr | What ip CIDR to use for this VPC
+cidr | What ip CIDR to use for this VPC (Not required when use_existing_vpc is true)
 account | The account name as known by the Aviatrix controller
 transit_gw | The name of the transit gateway we want to attach this spoke to. Not required when attached is set to false.
 
@@ -78,11 +75,15 @@ skip_public_route_table_update | false | Skip programming VPC public route table
 auto_advertise_s2c_cidrs | false | Auto Advertise Spoke Site2Cloud CIDRs.
 tunnel_detection_time | 60 | The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600].
 tags | null | Map of tags to assign to the gateway.
+use_existing_vpc | false | Set to true to use an existing VPC in stead of having this module create one.
+vpc_id | | VPC ID, for using an existing VPC.
+gw_subnet | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled. Make sure this is a public subnet.
+hagw_subnet | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled and ha_gw is true. Make sure this is a public subnet.
 
 ### Outputs
 This module will return the following outputs:
 
 key | description
 :---|:---
-vpc | The created VPC as an object with all of it's attributes. This was created using the aviatrix_vpc resource.
+vpc | The created VPC as an object with all of it's attributes (when use_existing_vpc is false). This was created using the aviatrix_vpc resource.
 spoke_gateway | The created Aviatrix spoke gateway as an object with all of it's attributes.
