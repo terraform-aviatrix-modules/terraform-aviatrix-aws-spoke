@@ -159,7 +159,7 @@ variable "auto_advertise_s2c_cidrs" {
 variable "tunnel_detection_time" {
   description = "The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600]."
   type        = number
-  default     = 60
+  default     = null
 }
 
 variable "tags" {
@@ -181,13 +181,13 @@ variable "vpc_id" {
 }
 
 variable "gw_subnet" {
-  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided"
+  description = "Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is true"
   type        = string
   default     = ""
 }
 
 variable "hagw_subnet" {
-  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided and ha_gw is true"
+  description = "Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is true and ha_gw is true"
   type        = string
   default     = ""
 }
@@ -201,8 +201,8 @@ locals {
   cidrbits          = tonumber(split("/", local.cidr)[1])
   newbits           = 26 - local.cidrbits
   netnum            = pow(2, local.newbits)
-  subnet            = var.use_existing_vpc ? null : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default[0].public_subnets[0].cidr)
-  ha_subnet         = var.use_existing_vpc ? null : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr)
+  subnet            = var.use_existing_vpc ? var.gw_subnet : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 2) : aviatrix_vpc.default[0].public_subnets[0].cidr)
+  ha_subnet         = var.use_existing_vpc ? var.hagw_subnet : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr)
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
 }

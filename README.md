@@ -73,7 +73,7 @@ customer_managed_keys | null | Customer managed key ID for EBS Volume encryption
 private_vpc_default_route | false | Program default route in VPC private route table.
 skip_public_route_table_update | false | Skip programming VPC public route table.
 auto_advertise_s2c_cidrs | false | Auto Advertise Spoke Site2Cloud CIDRs.
-tunnel_detection_time | 60 | The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600].
+tunnel_detection_time | null | The IPsec tunnel down detection time for the Spoke Gateway in seconds. Must be a number in the range [20-600]. Default is 60.
 tags | null | Map of tags to assign to the gateway.
 use_existing_vpc | false | Set to true to use an existing VPC in stead of having this module create one.
 vpc_id | | VPC ID, for using an existing VPC.
