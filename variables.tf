@@ -181,13 +181,13 @@ variable "vpc_id" {
 }
 
 variable "gw_subnet" {
-  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided"
+  description = "Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is true"
   type        = string
   default     = ""
 }
 
 variable "hagw_subnet" {
-  description = "Subnet CIDR, for using an existing VPC. Required when existing_vpc_id is provided and ha_gw is true"
+  description = "Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is true and ha_gw is true"
   type        = string
   default     = ""
 }
