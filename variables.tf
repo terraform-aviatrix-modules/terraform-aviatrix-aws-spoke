@@ -192,6 +192,12 @@ variable "hagw_subnet" {
   default     = ""
 }
 
+variable "china" {
+  description = "Set to true if deploying this module in AWS China."
+  type        = bool
+  default     = false
+}
+
 locals {
   lower_name        = replace(lower(var.name), " ", "-")
   prefix            = var.prefix ? "avx-" : ""
@@ -205,4 +211,5 @@ locals {
   ha_subnet         = var.use_existing_vpc ? var.hagw_subnet : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr)
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
+  cloud_type        = var.china ? 1024 : 1
 }
