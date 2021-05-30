@@ -1,7 +1,7 @@
 # Aviatrix Spoke VPC
 resource "aviatrix_vpc" "default" {
   count                = var.use_existing_vpc ? 0 : 1
-  cloud_type           = 1
+  cloud_type           = local.cloud_type
   region               = var.region
   cidr                 = var.cidr
   account_name         = var.account
@@ -14,7 +14,7 @@ resource "aviatrix_vpc" "default" {
 #Spoke GW
 resource "aviatrix_spoke_gateway" "default" {
   enable_active_mesh                    = var.active_mesh
-  cloud_type                            = 1
+  cloud_type                            = local.cloud_type
   vpc_reg                               = var.region
   gw_name                               = local.name
   gw_size                               = var.instance_size
