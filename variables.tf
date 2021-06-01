@@ -66,6 +66,12 @@ variable "transit_gw" {
   type        = string
 }
 
+variable "transit_gw2" {
+  description = "Name of the transit gateway to attach this spoke to"
+  type        = string
+  default     = ""
+}
+
 variable "active_mesh" {
   description = "Set to false to disable active mesh."
   type        = bool
