@@ -48,7 +48,7 @@ resource "aviatrix_spoke_transit_attachment" "default" {
 }
 
 resource "aviatrix_spoke_transit_attachment" "secondary" {
-  count           = var.transit_gw2 ? (var.attached ? 1 : 0) : 0
+  count           = length(var.transit_gw2) > 0 ? (var.attached ? 1 : 0) : 0
   spoke_gw_name   = aviatrix_spoke_gateway.default.gw_name
   transit_gw_name = var.transit_gw2
 }
