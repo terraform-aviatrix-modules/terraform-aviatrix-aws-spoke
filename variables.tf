@@ -72,6 +72,18 @@ variable "transit_gw2" {
   default     = ""
 }
 
+variable "transit_gw_route_tables" {
+  description = "Route tables to propagate routes to for transit_gw attachment"
+  type        = list(string)
+  default     = []
+}
+
+variable "transit_gw2_route_tables" {
+  description = "Route tables to propagate routes to for transit_gw2 attachment"
+  type        = list(string)
+  default     = []
+}
+
 variable "active_mesh" {
   description = "Set to false to disable active mesh."
   type        = bool
@@ -79,7 +91,13 @@ variable "active_mesh" {
 }
 
 variable "attached" {
-  description = "Set to false if you don't want to attach spoke to transit."
+  description = "Set to false if you don't want to attach spoke to transit_gw."
+  type        = bool
+  default     = true
+}
+
+variable "attached_gw2" {
+  description = "Set to false if you don't want to attach spoke to transit_gw2."
   type        = bool
   default     = true
 }
