@@ -64,7 +64,7 @@ resource "aviatrix_segmentation_security_domain_association" "default" {
 }
 
 resource "aviatrix_transit_firenet_policy" "default" {
-  count                        = var.inspection
+  count                        = var.inspection ? 1 : 0
   transit_firenet_gateway_name = var.transit_gw
   inspected_resource_name      = "SPOKE:${aviatrix_spoke_gateway.default.gw_name}"
 }
