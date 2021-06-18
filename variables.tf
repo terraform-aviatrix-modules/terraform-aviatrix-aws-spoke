@@ -64,9 +64,10 @@ variable "az2" {
 variable "transit_gw" {
   description = "Name of the transit gateway to attach this spoke to"
   type        = string
+  default     = ""
 }
 
-variable "transit_gw2" {
+variable "transit_gw_egress" {
   description = "Name of the transit gateway to attach this spoke to"
   type        = string
   default     = ""
@@ -78,7 +79,7 @@ variable "transit_gw_route_tables" {
   default     = []
 }
 
-variable "transit_gw2_route_tables" {
+variable "transit_gw_egress_route_tables" {
   description = "Route tables to propagate routes to for transit_gw2 attachment"
   type        = list(string)
   default     = []
@@ -96,7 +97,7 @@ variable "attached" {
   default     = true
 }
 
-variable "attached_gw2" {
+variable "attached_gw_egress" {
   description = "Set to false if you don't want to attach spoke to transit_gw2."
   type        = bool
   default     = true

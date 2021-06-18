@@ -48,11 +48,11 @@ resource "aviatrix_spoke_transit_attachment" "default" {
   route_tables    = var.transit_gw_route_tables
 }
 
-resource "aviatrix_spoke_transit_attachment" "transit_gw2" {
-  count           = length(var.transit_gw2) > 0 ? (var.attached_gw2 ? 1 : 0) : 0
+resource "aviatrix_spoke_transit_attachment" "transit_gw_egress" {
+  count           = length(var.transit_gw_egress) > 0 ? (var.attached_gw_egress ? 1 : 0) : 0
   spoke_gw_name   = aviatrix_spoke_gateway.default.gw_name
-  transit_gw_name = var.transit_gw2
-  route_tables    = var.transit_gw2_route_tables
+  transit_gw_name = var.transit_gw_egress
+  route_tables    = var.transit_gw_egress_route_tables
 }
 
 resource "aviatrix_segmentation_security_domain_association" "default" {

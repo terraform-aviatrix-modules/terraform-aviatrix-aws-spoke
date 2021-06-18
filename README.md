@@ -61,7 +61,7 @@ active_mesh | true | Set to false to disable active mesh.
 prefix | true | Boolean to enable prefix name with avx-
 suffix | true | Boolean to enable suffix name with -spoke
 attached | true | Set to false if you don't want to attach spoke to transit_gw.
-attached_gw2 | true | Set to false if you don't want to attach spoke to transit_gw2.
+attached_gw_egress | true | Set to false if you don't want to attach spoke to transit_gw_egress.
 security_domain | | Provide security domain name to which spoke needs to be deployed. Transit gateway must be attached and have segmentation enabled.
 single_az_ha | true | Set to false if Controller managed Gateway HA is desired
 single_ip_snat | false | Specify whether to enable Source NAT feature in single_ip mode on the gateway or not. Please disable AWS NAT instance before enabling this feature. Currently only supports AWS(1) and AZURE(8)
@@ -82,9 +82,9 @@ vpc_id | | VPC ID, for using an existing VPC.
 gw_subnet | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled. Make sure this is a public subnet.
 hagw_subnet | | Subnet CIDR, for using an existing VPC. Required when use_existing_vpc is enabled and ha_gw is true. Make sure this is a public subnet.
 china | false | Set to true when deploying this module in AWS China
-transit_gw2 | | Add secondary transit to attach spoke to (e.g. for dual transit firenet). When segmentation is used, transit_gw MUST be used for east/west transit.
+transit_gw_egress | | Add secondary transit to attach spoke to (e.g. for dual transit firenet). When segmentation is used, transit_gw MUST be used for east/west transit.
 transit_gw_route_tables | [] | A list of route tables to propagate routes to for transit_gw attachment.
-transit_gw2_route_tables | [] | A list of route tables to propagate routes to for transit_gw2 attachment.
+transit_gw_egress_route_tables | [] | A list of route tables to propagate routes to for transit_gw_egress attachment.
 inspection | false | Set to true to enable east/west Firenet inspection. Only valid when transit_gw is East/West transit Firenet
 
 ### Outputs
