@@ -66,6 +66,24 @@ variable "transit_gw" {
   type        = string
 }
 
+variable "transit_gw2" {
+  description = "Name of the transit gateway to attach this spoke to"
+  type        = string
+  default     = ""
+}
+
+variable "transit_gw_route_tables" {
+  description = "Route tables to propagate routes to for transit_gw attachment"
+  type        = list(string)
+  default     = []
+}
+
+variable "transit_gw2_route_tables" {
+  description = "Route tables to propagate routes to for transit_gw2 attachment"
+  type        = list(string)
+  default     = []
+}
+
 variable "active_mesh" {
   description = "Set to false to disable active mesh."
   type        = bool
@@ -73,7 +91,13 @@ variable "active_mesh" {
 }
 
 variable "attached" {
-  description = "Set to false if you don't want to attach spoke to transit."
+  description = "Set to false if you don't want to attach spoke to transit_gw."
+  type        = bool
+  default     = true
+}
+
+variable "attached_gw2" {
+  description = "Set to false if you don't want to attach spoke to transit_gw2."
   type        = bool
   default     = true
 }
@@ -194,6 +218,12 @@ variable "hagw_subnet" {
 
 variable "china" {
   description = "Set to true if deploying this module in AWS China."
+  type        = bool
+  default     = false
+}
+
+variable "inspection" {
+  description = "Set to true to enable east/west Firenet inspection. Only valid when transit_gw is East/West transit Firenet"
   type        = bool
   default     = false
 }
