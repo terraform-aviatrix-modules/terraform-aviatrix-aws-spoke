@@ -67,4 +67,5 @@ resource "aviatrix_transit_firenet_policy" "default" {
   count                        = var.inspection ? 1 : 0
   transit_firenet_gateway_name = var.transit_gw
   inspected_resource_name      = "SPOKE:${aviatrix_spoke_gateway.default.gw_name}"
+  depends_on                   = [aviatrix_spoke_transit_attachment.default] #Let's make sure this cannot create a race condition
 }
