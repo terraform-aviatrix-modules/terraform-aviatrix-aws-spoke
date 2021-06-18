@@ -85,6 +85,7 @@ china | false | Set to true when deploying this module in AWS China
 transit_gw2 | | Add secondary transit to attach spoke to (e.g. for dual transit firenet). When segmentation is used, transit_gw MUST be used for east/west transit.
 transit_gw_route_tables | [] | A list of route tables to propagate routes to for transit_gw attachment.
 transit_gw2_route_tables | [] | A list of route tables to propagate routes to for transit_gw2 attachment.
+inspection | false | Set to true to enable east/west Firenet inspection. Only valid when transit_gw is East/West transit Firenet
 
 ### Outputs
 This module will return the following outputs:
