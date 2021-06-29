@@ -6,6 +6,7 @@ This module deploys a very simple spoke VPC, with a public and a private subnet 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
+v4.0.2 | 0.13+0.14 | >=6.4 | >=0.2.19
 v4.0.1 | 0.13+0.14 | >=6.4 | >=0.2.19
 v4.0.0 | 0.13+0.14 | >=6.4 | >=0.2.19
 v3.0.1 | 0.13 | >=6.3 | >=0.2.18
@@ -25,7 +26,7 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "4.0.1"
+  version = "4.0.2"
 
   name            = "App1"
   cidr            = "10.1.0.0/20"
