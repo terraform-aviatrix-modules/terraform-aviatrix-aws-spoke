@@ -80,7 +80,7 @@ variable "transit_gw_route_tables" {
 }
 
 variable "transit_gw_egress_route_tables" {
-  description = "Route tables to propagate routes to for transit_gw2 attachment"
+  description = "Route tables to propagate routes to for transit_gw_egress attachment"
   type        = list(string)
   default     = []
 }
@@ -223,6 +223,13 @@ variable "china" {
   default     = false
 }
 
+variable "gov" {
+  description = "Set to true if deploying this module in AWS GOV."
+  type        = bool
+  default     = false
+}
+
+
 variable "inspection" {
   description = "Set to true to enable east/west Firenet inspection. Only valid when transit_gw is East/West transit Firenet"
   type        = bool
@@ -242,5 +249,5 @@ locals {
   ha_subnet         = var.use_existing_vpc ? var.hagw_subnet : (var.insane_mode ? cidrsubnet(local.cidr, local.newbits, local.netnum - 1) : aviatrix_vpc.default[0].public_subnets[1].cidr)
   insane_mode_az    = var.insane_mode ? "${var.region}${var.az1}" : null
   ha_insane_mode_az = var.insane_mode ? "${var.region}${var.az2}" : null
-  cloud_type        = var.china ? 1024 : 1
+  cloud_type        = var.china ? 1024 : (var.gov ? 256 : 1)
 }
