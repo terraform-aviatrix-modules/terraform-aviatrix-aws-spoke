@@ -1,17 +1,16 @@
 # terraform-aviatrix-aws-spoke
 
 ### Description
-This module deploys a very simple spoke VPC, with a public and a private subnet in each availability zone. Transit gateways are created in the public subnets of the 2 first AZ's.
+This module deploys a very simple spoke VPC, with a public and a private subnet in each availability zone. Spoke gateways are created in the public subnets of the 2 first AZ's.
 
 ### Compatibility
 Module version | Terraform version | Controller version | Terraform provider version
 :--- | :--- | :--- | :---
+v4.0.3 | 0.13+0.14 | >=6.4 | >=0.2.19
+v4.0.2 | 0.13+0.14 | >=6.4 | >=0.2.19
 v4.0.2 | 0.13+0.14 | >=6.4 | >=0.2.19
 v4.0.1 | 0.13+0.14 | >=6.4 | >=0.2.19
 v4.0.0 | 0.13+0.14 | >=6.4 | >=0.2.19
-v3.0.1 | 0.13 | >=6.3 | >=0.2.18
-v3.0.0 | 0.13 | >=6.2 | >=0.2.17
-v2.0.0 | 0.12 | >=6.2 | >=0.2.17
 
 **_Information on older releases can be found in respective release notes._*
 
@@ -26,7 +25,7 @@ with ha_gw set to false, the following will be deployed:
 ```
 module "spoke_aws_1" {
   source  = "terraform-aviatrix-modules/aws-spoke/aviatrix"
-  version = "4.0.2"
+  version = "4.0.3"
 
   name            = "App1"
   cidr            = "10.1.0.0/20"
@@ -87,6 +86,7 @@ transit_gw_egress | | Add secondary transit to attach spoke to (e.g. for dual tr
 transit_gw_route_tables | [] | A list of route tables to propagate routes to for transit_gw attachment.
 transit_gw_egress_route_tables | [] | A list of route tables to propagate routes to for transit_gw_egress attachment.
 inspection | false | Set to true to enable east/west Firenet inspection. Only valid when transit_gw is East/West transit Firenet
+gov | false | Set to true when deploying this module in AWS GOV
 
 ### Outputs
 This module will return the following outputs:
